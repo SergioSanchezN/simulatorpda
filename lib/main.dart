@@ -12,7 +12,10 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(debugShowCheckedModeBanner: false, home: WebViewBypassSslPage());
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: WebViewBypassSslPage(),
+    );
   }
 }
 
@@ -26,10 +29,15 @@ class WebViewBypassSslPage extends StatefulWidget {
 class _WebViewBypassSslPageState extends State<WebViewBypassSslPage> {
   InAppWebViewController? _controller;
 
-  final Uri _url = Uri.parse("https://vicky.productoslavictoria.com/WMS/index2.php?view=Vista/Logistica/scan_options");
+  final Uri _url = Uri.parse(
+    "https://vicky.productoslavictoria.com/WMS/index2.php?view=Vista/Logistica/scan_options",
+  );
 
   Future<void> _escanear() async {
-    var scanned = await Navigator.push(context, MaterialPageRoute(builder: (context) => MobileScannerSimple()));
+    var scanned = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MobileScannerSimple()),
+    );
 
     if (scanned == null) return;
 
@@ -136,7 +144,12 @@ class _WebViewBypassSslPageState extends State<WebViewBypassSslPage> {
         appBar: AppBar(
           title: Text("WMS", style: TextStyle(color: Colors.white)),
           backgroundColor: Color(0xFFBF1523),
-          actions: [IconButton(icon: Icon(Icons.refresh, color: Colors.white), onPressed: _recargar)],
+          actions: [
+            IconButton(
+              icon: Icon(Icons.refresh, color: Colors.white),
+              onPressed: _recargar,
+            ),
+          ],
         ),
         body: SafeArea(
           child: InAppWebView(
@@ -160,7 +173,9 @@ class _WebViewBypassSslPageState extends State<WebViewBypassSslPage> {
               );
             },
             onReceivedServerTrustAuthRequest: (controller, challenge) async {
-              return ServerTrustAuthResponse(action: ServerTrustAuthResponseAction.PROCEED);
+              return ServerTrustAuthResponse(
+                action: ServerTrustAuthResponseAction.PROCEED,
+              );
             },
             onLoadError: (controller, url, code, message) {
               debugPrint("LoadError [$code]: $message");
@@ -244,10 +259,9 @@ class _WebViewBypassSslPageState extends State<WebViewBypassSslPage> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-        floatingActionButton: FloatingActionButton.extended(
+        floatingActionButton: FloatingActionButton(
           onPressed: _escanear,
-          icon: const Icon(Icons.barcode_reader),
-          label: const Text("Escanear"),
+          child: const Icon(Icons.barcode_reader),
         ),
       ),
     );
